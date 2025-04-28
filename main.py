@@ -29,7 +29,7 @@ def main():
             cv2.putText(frame, f'ID: {label} and Confidence: {confidence}', (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
             cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
 
-            if confidence > 70:
+            if confidence < 35:
                 config.create_attendance()
 
         cv2.imshow('Face Detection', frame)

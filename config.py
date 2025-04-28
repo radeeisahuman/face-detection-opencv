@@ -31,6 +31,18 @@ def initialize_tables():
         FOREIGN KEY (employee_id) REFERENCES users(id)
         )
     ''')
+
+    cursor.execute('''
+    SELECT * FROM users
+    ''')
+
+    users = cursor.fetchall()
+
+    if len(users) == 0:
+        cursor.execute('''
+    INSERT INTO users (id, name, age)
+    VALUES (:id, :name, :age)
+    ''', {'id': 1, 'name': 'Radee', 'age': 27})
     
     connection.commit()
     connection.close()
