@@ -11,22 +11,21 @@ def get_images_from_folder():
 
     return images
 
+def train():
+    recognizer = cv2.face.LBPHFaceRecognizer_create()
 
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-recognizer = cv2.face.LBPHFaceRecognizer_create()
+    faces = []
+    labels = []
 
-faces = []
-labels = []
+    images = get_images_from_folder()
 
-images = get_images_from_folder()
+    index = 1
 
-index = 1
+    for img in images:
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        faces.append(gray)
+        labels.append(index)
 
-for img in images:
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    faces.append(gray)
-    labels.append(index)
+    recognizer.train(faces, np.array(labels))
 
-recognizer.train(faces, np.array(labels))
-
-recognizer.save('trainer.yml')
+    recognizer.save('trainer.yml')

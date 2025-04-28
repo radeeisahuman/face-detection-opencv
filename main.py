@@ -1,11 +1,13 @@
 import cv2
 import config
+import face_recognition
 
 def main():
     face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
     recognizer = cv2.face.LBPHFaceRecognizer_create()
     cam = cv2.VideoCapture(0)
 
+    face_recognition.train()
     recognizer.read('trainer.yml')
 
     #fourcc = cv2.VideoWriter_fourcc(*'mp4v')
