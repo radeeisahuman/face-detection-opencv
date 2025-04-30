@@ -32,6 +32,7 @@ def take_attendance():
 
             if confidence < 35:
                 config.create_attendance()
+                cv2.waitKey(200)
 
         cv2.imshow('Face Detection', frame)
 
