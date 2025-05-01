@@ -79,3 +79,27 @@ def create_attendance(employee_id: int = 1):
         
         connection.commit()
         connection.close()
+
+def get_attendance(filter: str = None):
+    connection = create_connection()
+    cursor = connection.cursor()
+
+    if filter is None:
+        cursor.execute('''
+        SELECT u.name, a.time_of_entry, a.date FROM attendance a
+        INNER JOIN users u
+        ON u.id = a.employee_id
+        ''')
+    else:
+        cursor.execute('''
+        SELECT u.name, a.time_of_entry, a.date FROM attendance a
+        INNER JOIN users u
+        ON u.id = a.employee_id
+        WHERE a.date LIKE :date
+        ''', {'date': "%" + filter})
+
+    attendance_entries = cursor.fetchall()
+
+    connection.close()
+
+    return attendance_entries
